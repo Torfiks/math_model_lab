@@ -54,7 +54,9 @@ def left_rectandles():
     total = sum([integral((start_int + (k*h))) for k in range(0, n)])
     
     result = h * total
+
     print(f"Результат: {result}\n")
+
     return result
 
 
@@ -68,7 +70,9 @@ def right_rectandles():
     total = sum([integral((start_int+h + (k*h))) for k in range(0, n)])
     
     result = h * total
+
     print(f"Результат: {result}\n")
+
     return result
 
 
@@ -116,22 +120,21 @@ monte_carlo()
 def simpsons():
     print("Метод Симпсона ", end="\n")
 
-    var1 = integral(h)
-    var2 = 0
-    var3 = 0
-    var4 = integral(start_int + (2 * n * h))
-    
-    for i in range(1, n+1):
-        if i % 2 == 1:
-            var2 += 4 * integral(start_int + (i*h))
-            
-    for i in range(1, n + 1):
+    temp = 0.0
+    # для нечетных
+    x = start_int + h
+    for i in range(1, int(n / 2 + 1)):
+        temp += 4 * integral(x)
+        x += 2 * h
 
-        if i % 2 == 0:
-            var3 += 2 * integral(start_int + (i*h))
-            
-    total = (h/3) * (var1+var2+var3+var4)
-    
+    # для четных
+    x = start_int + 2 * h
+    for i in range(1, int(n / 2)):
+        temp += 2 * integral(x)
+        x += 2 * h
+
+    total = (h / 3) * (integral(start_int) + integral(end_int) + temp)
+
     print(f"Результат: {total}\n")
     
     return total
@@ -142,40 +145,40 @@ simpsons()
 
 # Расчет погрешности
 def pog():
-    
     ist = ret()
-    
+
     mas = []
-    
+
     left = left_rectandles() - ist
     mas.append(left)
-    
+
     right = right_rectandles() - ist
     mas.append(right)
-    
-    trap = trapezoid() - ist 
-    mas.append(trapezoid())
-    
+
+    trap = trapezoid() - ist
+    mas.append(trap)
+
     monte = monte_carlo() - ist
     mas.append(monte)
-    
+
     simpson_ = simpsons() - ist
-    mas.append(simpsons())
-    
+    mas.append(simpson_)
+
     print()
     print(f"Погрешность метод левых прямоугольников {left}\n")
     print(f"Погрешность метод правых прямоугольников {right}\n")
     print(f"Погрешность метод трапеции {trap}\n")
     print(f"Погрешность метод монте-карло {monte}\n")
     print(f"Погрешность метод симпсона {simpson_}\n")
-    
-    min_ = mas[0]
+
     index = 0
+    min_ = abs(mas[index])
     for i in range(len(mas)):
-        if abs(mas[i]) < min_:
-            min_ = mas[i]
+        if abs(mas[i]) <= min_:
+            min_ = abs(mas[i])
             index = i
-    
+            print("d", min_, i)
+
     print("Лучший Метод:")
     if index == 0:
         print("метод левых прямоугольников")
@@ -183,10 +186,10 @@ def pog():
         print("метод правых прямоугольников")
     elif index == 2:
         print("метод трапеции")
-    elif index == 3:    
+    elif index == 3:
         print("метод монте-карло")
     elif index == 4:
         print("симпсона")
-    
+
 
 pog()

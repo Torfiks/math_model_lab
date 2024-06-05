@@ -64,7 +64,16 @@ def gradient_df():
 
 
 gradient_df()
+# построение графика
+x_plt = np.arange(x_start,x_end, step)
+f_plt  = [df(x) for x in x_plt]
 
+# параметры для отображения графика
+fig, ax = plt.subplots()
+ax.grid(True)
+ax.plot(x_plt, f_plt)  # df(x) на графике
+plt.xlabel("График производной функции df(x) ")
+plt.show() # демонстрация графика
 
 # Спуск производной
 def gradient_descent():
