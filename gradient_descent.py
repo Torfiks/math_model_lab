@@ -73,7 +73,8 @@ fig, ax = plt.subplots()
 ax.grid(True)
 ax.plot(x_plt, f_plt)  # df(x) на графике
 plt.xlabel("График производной функции df(x) ")
-plt.show() # демонстрация графика
+plt.show()  # демонстрация графика
+
 
 # Спуск производной
 def gradient_descent():
@@ -120,7 +121,6 @@ def gradient_descent_2():
                 y_min_global = y_min_local
                 x_min_global = x
 
-    print(f'global minimum is: {y_min_global}')
     print(f'local minimum is: {x_min_global}')
 
 

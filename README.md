@@ -7,6 +7,9 @@
 
 ### Градиентного спуска
 Работа представлена в файлах  `gradient_descent.py` и в `gradient_descent.ipynb`
+
+Градиентный спуск — это численный метод нахождения локального минимума или максимума функции с помощью движения вдоль градиента.
+
 Целью работы являться изучение и применения метода </u>градиентного спуска</u> для нахождения локального минимума элементарных функций.
 
 В данной работе была предоставлена Исходная функция f(x)
@@ -22,6 +25,7 @@ def df(x):
 По данным функциям были построенны графики представлены в функциях `gradient_f` и ` gradient_df`
 
 В функции `gradient_descent_2` представлен градиентный спуск
+
 ```
 def gradient_descent_2():
     y_min_global = 0
@@ -32,7 +36,9 @@ def gradient_descent_2():
 
         for i in range(1000):
             learning_rate = 1 / min(i + 10, 100)
+            
             x = x - learning_rate * np.sign(df(x))
+            
             if x < x_start - (x_start / 10) or x > x_end - (x_end / 10):
                 break
             else:
@@ -42,7 +48,6 @@ def gradient_descent_2():
                 y_min_global = y_min_local
                 x_min_global = x
 
-    print(f'global minimum is: {y_min_global}')
     print(f'local minimum is: {x_min_global}')
 ```
 ### Вывод 
@@ -51,7 +56,7 @@ def gradient_descent_2():
 ## Лабораторная работа № 2
 
 ### Разорение игрока
-Работа представлена в файлах  `gradient_descent.py` и в `ruining_player.ipynb`
+Работа представлена в файлах  `ruining_player.py` и в `ruining_player.ipynb`
 
 Целью работы является изучение принципа алгоритма случайных блужданий и применить его для решения задачи о разорении игрока.
 
@@ -295,7 +300,7 @@ def simpsons():
 ## Лабораторная работа № 4
 
 ### Метод численного решения уравнений 
-Работа представлена в файлах  `method_solving_equations.py` и в `method_solving_equations.ipynb`
+Работа представлена в файлах  `method_solving_equations.py` и в `method_solving_equations.ipynb` .
 
 Целью работы является изучение и применения метода бисекций и метода хорд для решения уравнения  
 
@@ -326,8 +331,10 @@ def bisection_method(start=a, end=b, tol=xx):
         print("ошибка")
         return None
     
-    while (end - start) / 2 > tol:
+    while (end - start) / 2 > tol: # определяем точность 
+    
         c = (start + end) / 2
+        
         if f(c) == 0:
             return c
         elif f(c) * f(start) < 0:
